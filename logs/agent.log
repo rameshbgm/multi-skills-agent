@@ -15,3 +15,14 @@
 2026-01-15 01:20:33,780 - src.agent - INFO - Processing request for thread 7d1f8467-fcfc-4eed-ae01-7d5d73f4b96a: Is fiber internet available at 123 Main St, zip code 10001?
 2026-01-15 01:20:35,241 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
 2026-01-15 01:20:36,877 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-15 02:10:46,090 - src.agent - INFO - Loaded skill: Financial Analyst
+2026-01-15 02:10:46,090 - src.agent - INFO - Loaded skill: Doctor
+2026-01-15 02:10:46,090 - src.agent - INFO - Loaded skill: Maths Teacher
+2026-01-15 02:10:46,090 - src.agent - INFO - Loaded skill: Lawyer
+2026-01-15 02:10:46,091 - src.agent - INFO - Loaded skill: Comedian
+2026-01-15 02:10:46,092 - src.agent - INFO - MultiSkillsAgent initialized with 5 skills.
+2026-01-15 02:11:02,140 - src.agent - INFO - Processing request for thread 76fda193-f430-4194-91a6-7a3a9d0f26ea: cleaar...
+2026-01-15 02:11:04,425 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-15 02:11:08,063 - src.agent - INFO - Resetting conversation for thread: 76fda193-f430-4194-91a6-7a3a9d0f26ea
+2026-01-15 02:11:27,249 - src.agent - INFO - Processing request for thread 3afac3b5-998c-4edf-bf5f-d0092c1cc38f: What's a good strategy for retirement savings at age 30?...
+2026-01-15 02:11:35,954 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"

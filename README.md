@@ -135,12 +135,67 @@ Each skill directory contains:
 
 ## 🚀 Getting Started
 
-### Prerequisites
+### Option 1: GitHub Codespaces (Recommended - No Local Setup!)
+
+The easiest way to run this project is using GitHub Codespaces. Everything is pre-configured!
+
+#### Step 1: Open in Codespaces
+
+1. Go to the repository: **<https://github.com/rameshbgm/multi-skills-agent>**
+2. Click the green **`<> Code`** button
+3. Select the **`Codespaces`** tab
+4. Click **`Create codespace on main`**
+
+> ⏳ Wait 1-2 minutes for the environment to build. The setup script will automatically:
+>
+> - Create a Python virtual environment
+> - Install all dependencies
+> - Prepare the project structure
+
+#### Step 2: Add Your OpenAI API Key
+
+Once the Codespace is ready, you need to add your API key:
+
+```bash
+# Option A: Create .env file directly
+echo 'OPENAI_API_KEY=sk-your-api-key-here' > .env
+
+# Option B: Or edit the file manually
+# 1. Open .env file in the editor
+# 2. Add: OPENAI_API_KEY=sk-your-api-key-here
+# 3. Save the file
+```
+
+> 🔑 **Get an API Key**: Visit [platform.openai.com/api-keys](https://platform.openai.com/api-keys) to create one.
+
+#### Step 3: Run the Agent
+
+```bash
+python main.py
+```
+
+You should see:
+
+```
+╔═══════════════════════════════════════════════════════════════════╗
+║                   MULTI-SKILLS AGENT v2.0                         ║
+║           "Build Skills, Not Agents" Architecture                 ║
+╠═══════════════════════════════════════════════════════════════════╣
+...
+```
+
+Type your questions and interact with the agent!
+
+---
+
+### Option 2: Local Installation
+
+#### Prerequisites
 
 - Python 3.11+
 - OpenAI API Key (GPT-4o-mini recommended)
 
-### Installation
+#### Installation Steps
 
 1. **Clone the repository**:
 
@@ -167,14 +222,23 @@ Each skill directory contains:
 
     ```bash
     cp .env.example .env
-    # Edit .env and add your OPENAI_API_KEY
     ```
 
-### Usage
+    Then edit `.env` and add your key:
 
-```bash
-python3 main.py
-```
+    ```
+    OPENAI_API_KEY=sk-your-api-key-here
+    ```
+
+5. **Run the agent**:
+
+    ```bash
+    python main.py
+    ```
+
+---
+
+### Usage
 
 **CLI Commands**:
 
