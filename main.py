@@ -40,32 +40,114 @@ def print_examples():
     ║                      EXAMPLE INTERACTIONS                          ║
     ╠═══════════════════════════════════════════════════════════════════╣
 
-    💰 Financial Analyst:
+    💰 FINANCIAL ANALYST
+    ─────────────────────────────────────────────────────────────────────
+       Investment Analysis:
        • "Should I invest in index funds or individual stocks?"
-       • "Explain the P/E ratio and how to use it"
-       • "What's a good strategy for retirement savings?"
+       • "What's a good P/E ratio for a tech company?"
+       • "Explain the difference between growth and value investing"
+       • "How do I evaluate if a stock is overvalued?"
+       
+       Financial Planning:
+       • "What's a good strategy for retirement savings at age 30?"
+       • "How much should I have in an emergency fund?"
+       • "Explain the 4% rule for retirement withdrawals"
+       • "What's the difference between a 401(k) and Roth IRA?"
+       
+       Concepts:
+       • "What is compound interest and why does it matter?"
+       • "Explain dollar-cost averaging"
+       • "What is diversification and how does it reduce risk?"
+       • "What are bonds and how do they work?"
 
-    📐 Maths Teacher:
+    📐 MATHS TEACHER
+    ─────────────────────────────────────────────────────────────────────
+       Algebra:
        • "Solve the equation 3x² - 12x + 9 = 0"
-       • "Explain derivatives with a real-world example"
+       • "Factor the expression x² - 9"
+       • "Solve for x: 2(x + 3) = 14"
+       • "What is the quadratic formula?"
+       
+       Arithmetic:
        • "What is 15% of 240?"
+       • "How do I convert fractions to decimals?"
+       • "Calculate 3/4 + 2/5"
+       • "What is the order of operations?"
+       
+       Geometry & Calculus:
+       • "Find the area of a circle with radius 7"
+       • "What is the Pythagorean theorem?"
+       • "Explain derivatives with a real-world example"
+       • "What is the integral of x²?"
+       
+       Statistics:
+       • "What's the difference between mean, median, and mode?"
+       • "How do I calculate standard deviation?"
+       • "Explain probability with a coin flip example"
 
-    😂 Comedian:
+    😂 COMEDIAN
+    ─────────────────────────────────────────────────────────────────────
+       Jokes:
        • "Tell me a joke"
+       • "Give me your best dad joke"
+       • "Tell me a programming joke"
+       • "I want to hear a pun"
+       
+       Situational:
        • "I need a laugh, my day has been terrible"
-       • "Write a funny story about working from home"
+       • "Make Monday mornings less painful"
+       • "Write something funny about working from home"
+       • "Tell me something absurd to cheer me up"
+       
+       Creative:
+       • "Write a funny short story about a lazy cat"
+       • "Give me a witty comeback for 'you're late'"
+       • "Create a humorous excuse for missing a meeting"
 
-    🏥 Doctor:
+    🏥 DOCTOR (Medical Advisor)
+    ─────────────────────────────────────────────────────────────────────
+       Symptoms & Conditions:
        • "What causes headaches?"
+       • "Why do I feel tired all the time?"
+       • "What are common cold symptoms vs flu?"
+       • "What causes muscle cramps?"
+       
+       Wellness & Prevention:
        • "How much water should I drink daily?"
        • "What are the benefits of regular exercise?"
+       • "How can I improve my sleep quality?"
+       • "What foods help boost the immune system?"
+       
+       Health Education:
+       • "What is blood pressure and why does it matter?"
+       • "Explain cholesterol - good vs bad"
+       • "What screenings should I get at age 40?"
+       • "How does stress affect the body?"
 
-    ⚖️ Lawyer:
+    ⚖️ LAWYER (Legal Advisor)
+    ─────────────────────────────────────────────────────────────────────
+       Contracts:
        • "What makes a contract legally binding?"
-       • "Explain the difference between civil and criminal law"
+       • "Can I get out of a contract I signed?"
+       • "What should I look for before signing a lease?"
+       • "What is a non-compete agreement?"
+       
+       Rights:
        • "What are my rights as a tenant?"
+       • "What should I do if I'm arrested?"
+       • "What are my employee rights?"
+       • "What is fair use in copyright?"
+       
+       Business & General:
+       • "What's the difference between an LLC and corporation?"
+       • "Explain the difference between civil and criminal law"
+       • "What is a statute of limitations?"
+       • "How does small claims court work?"
 
     ╚═══════════════════════════════════════════════════════════════════╝
+    
+    💡 TIP: You can ask follow-up questions or combine skills!
+       Example: "Explain compound interest like I'm 10 years old"
     """
     print(examples)
 
