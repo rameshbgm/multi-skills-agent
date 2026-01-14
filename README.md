@@ -1,143 +1,348 @@
-# Telecom Skills Agent
+# Multi-Skills Agent
 
-A CLI-based AI agent demonstrating the "Build Skills, Not Agents" architecture using LangChain, LangGraph, and OpenAI.
+A CLI-based AI agent demonstrating the **"Build Skills, Not Agents"** architecture using LangChain, LangGraph, and OpenAI.
 
-This agent handles three distinct domain skills using a single ReAct loop:
+This agent uses a single generalist core with dynamically loaded domain skills. No custom tools or databases required—pure knowledge injection through skill definitions.
 
-## Agent Skills
+## 🎯 Core Concept
 
-### 1. Roaming Activation Specialist
+Instead of building specialized agents for each domain, we build **one versatile agent** and equip it with **multiple skills**. Each skill is a markdown file that defines:
 
-**Role**: International travel connectivity expert.
+- **Role**: What the agent becomes when using this skill
+- **Competencies**: What the agent knows
+- **Communication Style**: How the agent should respond
+- **Guardrails**: What the agent should NOT do
+- **Examples**: Reference interactions
 
-- **Capabilities**:
-  - Verifies account eligibility and credit status.
-  - Checks specific country rates and restrictions (e.g., restricted service in North Korea, Iran).
-  - Recommends packages based on trip duration:
-    - *1-2 days*: Daily Pass
-    - *3-9 days*: Weekly Pass
-    - *10+ days*: Monthly Plan
-  - Activates services and issues reference numbers.
+## 🧠 Available Skills
 
-### 2. Broadband Installation Expert
+### 1. Financial Analyst
 
-**Role**: Home internet scheduling and provisioning.
+**Role**: Investment analysis and financial planning expert.
 
-- **Capabilities**:
-  - Validates service availability by Zip Code.
-  - Offers technology-specific plans (Fiber vs Cable vs DSL).
-  - Manages appointments (Booking, Rescheduling, Cancellations).
-- **Business Rules**:
-  - Operates in 4-hour windows (8-12, 12-4, 4-8).
-  - Requires 2 business days notice for new bookings.
-  - Enforces cancellation fees for changes within 24 hours.
+- **Competencies**:
+  - Stock, bond, and fund analysis
+  - Retirement and tax planning
+  - Economic indicators and market trends
+  - Financial metrics (P/E, ROE, Sharpe ratio)
+- **Guardrails**: No specific stock recommendations; always mention investment risks
 
-### 3. Fee Waiver Specialist
+### 2. Maths Teacher
 
-**Role**: Financial empathy and policy enforcement.
+**Role**: Patient mathematics educator for all levels.
 
-- **Capabilities**:
-  - Analyzes customer tenure and payment history.
-  - Evaluates waiver requests based on valid vs invalid reasons (e.g., Medical Emergency vs "I forgot").
-  - **Scoring System**:
-    - *Score 100+*: 100% Waiver (Loyal, rare mistake)
-    - *Score 60-99*: 50% Waiver (Good history, occasional issue)
-    - *Score < 60*: No Waiver (Chronic issues, invalid reasons)
+- **Competencies**:
+  - Arithmetic, fractions, percentages
+  - Algebra and equation solving
+  - Geometry and trigonometry
+  - Calculus (derivatives, integrals)
+  - Statistics and probability
+- **Guardrails**: Show work step-by-step; teach, don't just provide answers
 
-## Architecture
+### 3. Comedian
 
-- **One Generalist Agent**: A single `TelecomSkillsAgent` class.
-- **Dynamic Tools**: Each domain exposes specific tools (e.g., `check_service_availability`, `activate_roaming`).
-- **Knowledge Injection**: Domain constraints and processes are defined in `SKILL.md` files and injected into the System Prompt.
-- **LangGraph**: Manages the agent state and tool execution loop.
-- **Memory**: Maintains conversation context via `MemorySaver`.
+**Role**: Professional comedian bringing joy and laughter.
 
-## Prerequisites
+- **Competencies**:
+  - Observational comedy and puns
+  - Setup-punchline and misdirection
+  - Situational humor
+  - Dad jokes and wordplay
+- **Guardrails**: No harmful or offensive humor; respect boundaries
+
+### 4. Doctor (Medical Advisor)
+
+**Role**: Health education and wellness guidance.
+
+- **Competencies**:
+  - Common conditions and symptoms
+  - Preventive health and wellness
+  - Nutrition and lifestyle medicine
+  - Medical terminology
+- **Guardrails**: No diagnosis or prescriptions; always recommend professional consultation
+
+### 5. Lawyer (Legal Advisor)
+
+**Role**: Legal education and procedural guidance.
+
+- **Competencies**:
+  - Contract and business law
+  - Civil and criminal law basics
+  - Rights education
+  - Legal procedures
+- **Guardrails**: No legal advice; note jurisdictional variations; recommend attorneys
+
+---
+
+## 🏗️ Architecture
+
+```text
+multi-skills-agent/
+├── main.py                    # CLI Entry Point
+├── src/
+│   ├── agent.py               # MultiSkillsAgent Class
+│   └── skills/                # Skill Definitions
+│       ├── financial_analyst/
+│       │   └── SKILL.md
+│       ├── maths_teacher/
+│       │   └── SKILL.md
+│       ├── comedian/
+│       │   └── SKILL.md
+│       ├── doctor/
+│       │   └── SKILL.md
+│       └── lawyer/
+│           └── SKILL.md
+├── logs/                      # Agent Logs
+├── requirements.txt
+└── .env                       # API Keys (not tracked)
+```
+
+### How It Works
+
+1. **Skill Discovery**: On startup, the agent scans `src/skills/` for subdirectories containing `SKILL.md` files
+2. **Prompt Assembly**: All skill contents are combined into a comprehensive system prompt
+3. **Intent Recognition**: When a user asks a question, the LLM identifies the relevant skill
+4. **Skill Application**: The agent applies that skill's guidelines, style, and guardrails
+5. **Response Generation**: The LLM generates a response following the skill's instructions
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
 
 - Python 3.11+
-- An OpenAI API Key (`gpt-4o-mini` access recommmended)
+- OpenAI API Key (GPT-4o-mini recommended)
 
-## Setup
+### Installation
 
-1. **Clone/Navigate to the project**:
+1. **Clone the repository**:
 
     ```bash
-    cd telecom-skills-agent
+    git clone https://github.com/rameshbgm/multi-skills-agent.git
+    cd multi-skills-agent
     ```
 
-2. **Create a Virtual Environment**:
+2. **Create a virtual environment**:
 
     ```bash
     python3 -m venv venv
     source venv/bin/activate  # Mac/Linux
-    # or .\venv\Scripts\activate on Windows
+    # or: .\venv\Scripts\activate  # Windows
     ```
 
-3. **Install Dependencies**:
+3. **Install dependencies**:
 
     ```bash
     pip install -r requirements.txt
     ```
 
-4. **Configuration**:
-    Copy the example env file and add your API key:
+4. **Configure API key**:
 
     ```bash
     cp .env.example .env
-    # Edit .env and paste your OPENAI_API_KEY
+    # Edit .env and add your OPENAI_API_KEY
     ```
 
-## Usage
-
-Run the main entry point:
+### Usage
 
 ```bash
 python3 main.py
 ```
 
-### Commands
+**CLI Commands**:
 
-- `examples`: Show sample queries.
-- `clear`: Reset the conversation context.
-- `quit` / `exit`: Stop the program.
+| Command | Description |
+|---------|-------------|
+| `skills` | List all available skills |
+| `examples` | Show example interactions |
+| `clear` | Start a new conversation |
+| `quit` | Exit the application |
 
-## Mock Data
+---
 
-The system uses in-memory mock databases located in `src/database/mock_db.py` and various JSON files in `src/skills/`.
+## 📝 Creating New Skills
 
-**Sample Customer IDs:**
+Adding a new skill is simple. Follow these steps:
 
-- `CUST001` (Active, clean history)
-- `CUST002` (Active, owing money)
-- `CUST003` (Suspended, bad history)
+### Step 1: Create the Skill Directory
 
-## Example Scenarios to Try
-
-### 1. Roaming
->
-> "Hi, I am CUST001. I am going to Japan for 2 weeks."
-(Agent should suggest a Monthly plan or 2 Weekly passes, check rates, and ask to confirm.)
-
-### 2. Broadband
->
-> "Is internet available at 123 Main St, zip 10001?"
-(Agent should find Fiber availability.)
-> "Book an appointment for CUST002 next Tuesday morning."
-
-### 3. Fee Waiver
->
-> "I missed my payment because the bank app was down. Customer CUST001."
-(Agent should check history, see high score, and approve waiver.)
-
-## Project Structure
-
-```text
-telecom-skills-agent/
-├── main.py            # CLI Entrypoint
-├── src/
-│   ├── agent.py       # Main LangGraph Agent
-│   ├── skills/        # Domain knowledge (Markdown + JSON)
-│   ├── tools/         # Python functions (@tool)
-│   └── database/      # Mock in-memory DB
-└── logs/
+```bash
+mkdir -p src/skills/your_skill_name
 ```
+
+### Step 2: Create SKILL.md
+
+Create a file `src/skills/your_skill_name/SKILL.md` with the following structure:
+
+```markdown
+---
+name: Your Skill Name
+description: Brief description of what this skill does.
+version: 1.0.0
+author: Your Name
+---
+
+# Your Skill Name
+
+## Role
+
+Describe who the agent becomes when using this skill.
+Example: "You are an experienced [profession] who helps users with [domain]."
+
+## Core Competencies
+
+### 1. First Area of Expertise
+- Bullet points of specific knowledge
+- More specific capabilities
+- Related sub-topics
+
+### 2. Second Area of Expertise
+- Knowledge areas
+- Capabilities
+- Related topics
+
+## Communication Style
+
+- **Trait 1**: Description of how to communicate
+- **Trait 2**: Another communication guideline
+- **Trait 3**: Etc.
+
+## Guardrails
+
+1. **Safety Rule 1**: What NOT to do
+2. **Safety Rule 2**: Another limitation
+3. **Safety Rule 3**: Important boundary
+
+## Example Interactions
+
+### Scenario A: Common Use Case
+**User**: "Example user question"
+**Approach**: How the agent should handle this
+
+### Scenario B: Edge Case
+**User**: "Another example"
+**Approach**: How to handle this scenario
+
+## Response Format
+
+When responding:
+1. First step in the response process
+2. Second step
+3. Third step
+```
+
+### Step 3: Restart the Agent
+
+The agent automatically discovers new skills on startup. Just restart:
+
+```bash
+python3 main.py
+```
+
+### Best Practices for Skills
+
+1. **Be Specific**: The more detailed your skill definition, the better the agent performs
+2. **Include Guardrails**: Always define what the agent should NOT do
+3. **Add Examples**: Concrete examples help the LLM understand expected behavior
+4. **Define Tone**: Specify the communication style for consistent personality
+5. **Test Thoroughly**: Try edge cases to refine your skill definition
+
+---
+
+## 🎓 Example Interactions
+
+### Financial Analyst
+
+```
+You >> Should I invest in index funds?
+
+🤖 Agent:
+Index funds are an excellent option for many investors! Let me explain why...
+[Discusses diversification, low fees, historical performance, and notes that
+individual circumstances vary—recommends consulting a financial advisor]
+```
+
+### Maths Teacher
+
+```
+You >> Solve x² - 5x + 6 = 0
+
+🤖 Agent:
+Let's solve this step by step!
+
+**Step 1**: Factor the quadratic
+x² - 5x + 6 = (x - 2)(x - 3) = 0
+
+**Step 2**: Apply the zero product property
+x - 2 = 0  →  x = 2
+x - 3 = 0  →  x = 3
+
+**Answer**: x = 2 or x = 3
+
+**Verify**: Plug back in: (2)² - 5(2) + 6 = 4 - 10 + 6 = 0 ✓
+```
+
+### Comedian
+
+```
+You >> Tell me a joke
+
+🤖 Agent:
+Why do programmers prefer dark mode?
+
+Because light attracts bugs! 🐛
+
+...I'll be here all week. Try the veal. 🎤
+```
+
+---
+
+## 🔧 Configuration
+
+### Environment Variables
+
+| Variable | Description | Required |
+|----------|-------------|----------|
+| `OPENAI_API_KEY` | Your OpenAI API key | Yes |
+
+### Model Configuration
+
+Edit `src/agent.py` to change model settings:
+
+```python
+self.llm = ChatOpenAI(
+    model="gpt-4o-mini",  # or "gpt-4", "gpt-3.5-turbo"
+    temperature=0.7,       # Creativity level (0-1)
+    api_key=self.api_key
+)
+```
+
+---
+
+## 📚 Dependencies
+
+- `langchain-openai`: OpenAI integration for LangChain
+- `langgraph`: Agent orchestration and memory
+- `python-dotenv`: Environment variable management
+
+---
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a new skill in `src/skills/`
+3. Test thoroughly
+4. Submit a Pull Request
+
+---
+
+## 📄 License
+
+MIT License - feel free to use, modify, and distribute.
+
+---
+
+## 🙏 Acknowledgments
+
+Built with the "Build Skills, Not Agents" philosophy—demonstrating that one well-designed agent with rich skill definitions can replace multiple specialized agents.

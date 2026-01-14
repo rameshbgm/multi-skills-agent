@@ -1,31 +1,20 @@
 import os
 import logging
-from typing import Optional, List
+from typing import Optional
 from dotenv import load_dotenv
+from pathlib import Path
 
 from langchain_openai import ChatOpenAI
 from langchain_core.messages import SystemMessage, HumanMessage
-from langchain_core.prompts import ChatPromptTemplate
 from langgraph.prebuilt import create_react_agent
 from langgraph.checkpoint.memory import MemorySaver
 
-# Imports from tool modules
-from src.tools.roaming_tools import (
-    verify_customer_account, check_roaming_eligibility, get_roaming_rates,
-    activate_roaming_service, get_customer_balance, send_activation_confirmation
-)
-from src.tools.broadband_tools import (
-    check_service_availability, get_available_slots, schedule_installation,
-    check_installation_status, reschedule_appointment, cancel_appointment
-)
-from src.tools.fee_waiver_tools import (
-    check_customer_history, evaluate_waiver_eligibility, process_waiver,
-    get_waiver_policy, send_waiver_notification, recommend_prevention, escalate_waiver
-)
-
 # Setup logging
+log_dir = Path(__file__).parent.parent / "logs"
+log_dir.mkdir(exist_ok=True)
+
 logging.basicConfig(
-    filename='logs/agent.log',
+    filename=str(log_dir / 'agent.log'),
     level=logging.INFO,
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
 )
@@ -33,108 +22,163 @@ logger = logging.getLogger(__name__)
 
 load_dotenv()
 
-class TelecomSkillsAgent:
-    def __init__(self):
+
+class MultiSkillsAgent:
+    """
+    A generalist AI agent that dynamically loads and applies multiple skills.
+    
+    This agent demonstrates the 'Build Skills, Not Agents' architecture where
+    one agent can handle multiple domains by injecting skill-specific knowledge
+    into its system prompt.
+    """
+    
+    def __init__(self, skills_dir: Optional[str] = None):
+        """
+        Initialize the Multi-Skills Agent.
+        
+        Args:
+            skills_dir: Optional path to skills directory. If None, uses default location.
+        """
         self.api_key = os.getenv("OPENAI_API_KEY")
         if not self.api_key:
-            logger.warning("OPENAI_API_KEY not found in env.")
-
+            logger.warning("OPENAI_API_KEY not found in environment variables.")
+        
+        # Skills directory
+        if skills_dir:
+            self.skills_dir = Path(skills_dir)
+        else:
+            self.skills_dir = Path(__file__).parent / "skills"
+        
         # Initialize LLM
         self.llm = ChatOpenAI(
             model="gpt-4o-mini",
-            temperature=0.5,
+            temperature=0.7,
             api_key=self.api_key
         )
         
-        # Gather Tools
-        self.tools = [
-            # Roaming
-            verify_customer_account, check_roaming_eligibility, get_roaming_rates,
-            activate_roaming_service, get_customer_balance, send_activation_confirmation,
-            # Broadband
-            check_service_availability, get_available_slots, schedule_installation,
-            check_installation_status, reschedule_appointment, cancel_appointment,
-            # Fee Waiver
-            check_customer_history, evaluate_waiver_eligibility, process_waiver,
-            get_waiver_policy, send_waiver_notification, recommend_prevention, escalate_waiver
-        ]
-        
-        # Load Skills Content for System Prompt
+        # Load all skills and build system prompt
+        self.skills = self._discover_skills()
         self.system_prompt = self._build_system_prompt()
         
         # Initialize Memory
-        # In actual usage we pass the saver to compile
         self.memory = MemorySaver()
         
-        # Build Agent
+        # Build Agent (no tools - purely skill-based)
         self.agent_executor = create_react_agent(
-            self.llm, 
-            self.tools, 
+            self.llm,
+            tools=[],  # No tools - purely knowledge-based
             checkpointer=self.memory,
             prompt=self.system_prompt
         )
         
-        logger.info("TelecomSkillsAgent initialized successfully.")
-
-    def _load_skill_file(self, relative_path: str) -> str:
-        try:
-            base_dir = os.path.dirname(os.path.dirname(__file__)) # src/..
-            path = os.path.join(base_dir, relative_path)
-            with open(path, "r") as f:
-                return f.read()
-        except Exception as e:
-            logger.error(f"Failed to load skill file {relative_path}: {e}")
-            return ""
-
-    def _build_system_prompt(self) -> str:
-        roaming_skill = self._load_skill_file("src/skills/roaming_activation/SKILL.md")
-        broadband_skill = self._load_skill_file("src/skills/broadband_installation/SKILL.md")
-        waiver_skill = self._load_skill_file("src/skills/fee_waiver/SKILL.md")
-        
-        base_prompt = """You are a Telecom Customer Service AI Agent. 
-You are one agent with multiple capabilities.
-You have three main areas of expertise (Skills):
-
-1. Roaming Activation
-2. Broadband Installation checking & scheduling
-3. Late Payment Fee Waivers
-
-Below are the strictly defined SKILL protocols you must follow using the available tools.
-Read these instructions carefully. When a user asks for something, identify which skill applies and follow the specific step-by-step process and guardrails defined in that skill.
-
-"""
-        full_prompt = f"{base_prompt}\n\n=== SKILL 1: ROAMING ===\n{roaming_skill}\n\n=== SKILL 2: BROADBAND ===\n{broadband_skill}\n\n=== SKILL 3: FEE WAIVER ===\n{waiver_skill}\n\n"
-        full_prompt += """
-GENERAL RULES:
-- Be polite, professional, and concise.
-- If the user request is ambiguous, ask clarifying questions.
-- VERIFY IDENTITY: Almost all actions require knowing who the customer is (Customer ID). If you don't know, ASK.
-- Use the tools provided to perform actions. Do not hallucinate data.
-- Determine the tool to use based on the user's intent.
-"""
-        return full_prompt
-
-    def process_customer_request(self, customer_message: str, thread_id: Optional[str] = None) -> str:
+        logger.info(f"MultiSkillsAgent initialized with {len(self.skills)} skills.")
+    
+    def _discover_skills(self) -> dict:
         """
-        Processes a single turn of conversation.
+        Automatically discover all skills in the skills directory.
+        
+        Returns:
+            Dictionary mapping skill names to their content.
+        """
+        skills = {}
+        
+        if not self.skills_dir.exists():
+            logger.warning(f"Skills directory not found: {self.skills_dir}")
+            return skills
+        
+        for skill_path in self.skills_dir.iterdir():
+            if skill_path.is_dir() and not skill_path.name.startswith('_'):
+                skill_file = skill_path / "SKILL.md"
+                if skill_file.exists():
+                    try:
+                        content = skill_file.read_text(encoding='utf-8')
+                        skill_name = skill_path.name.replace('_', ' ').title()
+                        skills[skill_name] = content
+                        logger.info(f"Loaded skill: {skill_name}")
+                    except Exception as e:
+                        logger.error(f"Failed to load skill {skill_path.name}: {e}")
+        
+        return skills
+    
+    def _build_system_prompt(self) -> str:
+        """
+        Build the system prompt by combining all loaded skills.
+        
+        Returns:
+            Complete system prompt string.
+        """
+        skill_names = list(self.skills.keys())
+        
+        base_prompt = f"""You are a Multi-Skills AI Agent with expertise in multiple domains.
+
+You have {len(skill_names)} specialized skills:
+{chr(10).join(f'  {i+1}. {name}' for i, name in enumerate(skill_names))}
+
+When a user asks you something:
+1. Identify which skill(s) are most relevant to their query
+2. Apply the specific guidelines, communication style, and guardrails defined for that skill
+3. If the query spans multiple skills, integrate knowledge appropriately
+4. If no skill is directly applicable, use your general knowledge while maintaining professional standards
+
+Below are your detailed skill definitions. Follow the instructions, guardrails, and response formats specified in each skill.
+
+"""
+        # Add each skill's content
+        for i, (name, content) in enumerate(self.skills.items(), 1):
+            base_prompt += f"\n{'='*60}\n"
+            base_prompt += f"SKILL {i}: {name.upper()}\n"
+            base_prompt += f"{'='*60}\n\n"
+            base_prompt += content
+            base_prompt += "\n"
+        
+        # Add general guidelines
+        base_prompt += f"""
+{'='*60}
+GENERAL GUIDELINES
+{'='*60}
+
+1. **Be Professional**: Maintain a helpful, respectful, and professional tone.
+2. **Be Accurate**: Provide accurate information within the scope of your skills.
+3. **Know Your Limits**: If a question is outside your expertise, say so clearly.
+4. **Respect Guardrails**: Always follow the safety guidelines defined in each skill.
+5. **Adapt Communication**: Match your communication style to the relevant skill.
+6. **Ask for Clarity**: If a request is ambiguous, ask clarifying questions.
+7. **Stay in Character**: When using a skill, embody that role fully.
+"""
+        
+        return base_prompt
+    
+    def get_available_skills(self) -> list:
+        """
+        Get a list of all available skills.
+        
+        Returns:
+            List of skill names.
+        """
+        return list(self.skills.keys())
+    
+    def process_request(self, user_message: str, thread_id: Optional[str] = None) -> str:
+        """
+        Process a user request using the multi-skills agent.
+        
+        Args:
+            user_message: The user's input message.
+            thread_id: Optional conversation thread ID for memory.
+            
+        Returns:
+            The agent's response.
         """
         if not thread_id:
-            # If no thread_id, we can generate one or just use a default, 
-            # but usually the CLI manages this.
             thread_id = "default_thread"
-
+        
         config = {"configurable": {"thread_id": thread_id}}
         
-        logger.info(f"Processing request for thread {thread_id}: {customer_message}")
+        logger.info(f"Processing request for thread {thread_id}: {user_message[:100]}...")
         
         try:
-            inputs = {"messages": [("user", customer_message)]}
-            
-            # The agent returns the full state or a chunk. We want the final response.
-            # create_react_agent returns a CompiledGraph. invoke returns dict with 'messages'.
+            inputs = {"messages": [("user", user_message)]}
             result = self.agent_executor.invoke(inputs, config=config)
             
-            # Extract the last message content
             messages = result.get("messages", [])
             if messages:
                 last_msg = messages[-1]
@@ -144,4 +188,20 @@ GENERAL RULES:
                 
         except Exception as e:
             logger.error(f"Error processing request: {e}", exc_info=True)
-            return f"I encountered an system error: {str(e)}"
+            return f"I encountered a system error: {str(e)}"
+    
+    def reset_conversation(self, thread_id: str = "default_thread") -> None:
+        """
+        Reset the conversation memory for a specific thread.
+        
+        Note: With MemorySaver, this creates a new memory state.
+        """
+        logger.info(f"Resetting conversation for thread: {thread_id}")
+        # Re-initialize memory to reset all conversations
+        self.memory = MemorySaver()
+        self.agent_executor = create_react_agent(
+            self.llm,
+            tools=[],
+            checkpointer=self.memory,
+            prompt=self.system_prompt
+        )
