@@ -150,20 +150,19 @@ The easiest way to run this project is using GitHub Codespaces. Everything is pr
 >
 > - Create a Python virtual environment
 > - Install all dependencies
-> - Prepare the project structure
+> - Rename `.env.example` to `.env`
 
 #### Step 2: Add Your OpenAI API Key
 
-Once the Codespace is ready, you need to add your API key:
+The setup automatically creates a `.env` file. You just need to add your API key:
+
+1. Open the `.env` file in the editor (click on it in the file explorer)
+2. Replace `sk-your-api-key-here` with your actual OpenAI API key
+3. Save the file (Ctrl+S / Cmd+S)
 
 ```bash
-# Option A: Create .env file directly
-echo 'OPENAI_API_KEY=sk-your-api-key-here' > .env
-
-# Option B: Or edit the file manually
-# 1. Open .env file in the editor
-# 2. Add: OPENAI_API_KEY=sk-your-api-key-here
-# 3. Save the file
+# The .env file should look like this:
+OPENAI_API_KEY=sk-proj-abc123your-actual-key-here
 ```
 
 > 🔑 **Get an API Key**: Visit [platform.openai.com/api-keys](https://platform.openai.com/api-keys) to create one.
@@ -176,7 +175,7 @@ python main.py
 
 You should see:
 
-```
+```text
 ╔═══════════════════════════════════════════════════════════════════╗
 ║                   MULTI-SKILLS AGENT v2.0                         ║
 ║           "Build Skills, Not Agents" Architecture                 ║
