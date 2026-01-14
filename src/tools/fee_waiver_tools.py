@@ -13,9 +13,8 @@ def _load_json(path: str) -> Dict:
     with open(path, "r") as f:
         return json.load(f)
 
-@tool
-def check_customer_history(customer_id: str) -> Dict[str, Any]:
-    """Retrieves payment and waiver history for a customer."""
+# Internal Helper Functions
+def _check_customer_history(customer_id: str) -> Dict[str, Any]:
     customer = CUSTOMERS.get(customer_id)
     if not customer:
         return {"error": "Customer not found"}
@@ -27,13 +26,19 @@ def check_customer_history(customer_id: str) -> Dict[str, Any]:
         "days_overdue": customer.get("days_overdue", 0)
     }
 
+# Public Tools
+@tool
+def check_customer_history(customer_id: str) -> Dict[str, Any]:
+    """Retrieves payment and waiver history for a customer."""
+    return _check_customer_history(customer_id)
+
 @tool
 def evaluate_waiver_eligibility(customer_id: str, hardship_reason: str = "") -> Dict[str, Any]:
     """
     Calculates a score to determine if a fee waiver should be granted.
     Returns the recommended waiver percentage and tier.
     """
-    history = check_customer_history(customer_id)
+    history = _check_customer_history(customer_id)
     if "error" in history:
         return history
         
@@ -50,15 +55,14 @@ def evaluate_waiver_eligibility(customer_id: str, hardship_reason: str = "") -> 
     if history["late_payments_last_12m"] == 0:
         score += points["clean_history_12m"]
     elif history["late_payments_last_12m"] < 3:
-        # small penalty or just 0
         pass 
     else:
-        score -= 20 # Penalty for frequent lates
+        score -= 20 
         
     # 3. Previous waivers
     score += (history["previous_waivers"] * points["previous_waiver_penalty"])
     
-    # 4. Reason analysis (simple keyword match for demo)
+    # 4. Reason analysis
     is_valid_reason = any(r in hardship_reason.lower() for r in policies["valid_reasons"])
     is_invalid_reason = any(r in hardship_reason.lower() for r in policies["invalid_reasons"])
     
@@ -103,7 +107,7 @@ def process_waiver(customer_id: str, waiver_amount: float, reason: str) -> Dict[
         "customer_id": customer_id,
         "amount": waiver_amount,
         "reason": reason,
-        "date": "2023-10-27" # Mock date
+        "date": "2023-10-27" 
     })
     
     # Mock update customer balance logic
