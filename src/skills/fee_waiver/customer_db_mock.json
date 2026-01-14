@@ -1,0 +1,16 @@
+[
+    {
+        "id": "CUST001",
+        "tenure_months": 36,
+        "late_payments_last_12m": 0,
+        "previous_waivers": 0,
+        "days_overdue": 0
+    },
+    {
+        "id": "CUST002",
+        "tenure_months": 12,
+        "late_payments_last_12m": 2,
+        "previous_waivers": 1,
+        "days_overdue": 5
+    }
+]

@@ -1,0 +1,29 @@
+{
+    "thresholds": {
+        "full_waiver_min_score": 100,
+        "partial_waiver_min_score": 60,
+        "escalation_max_score": 59
+    },
+    "points": {
+        "tenure_per_year": 10,
+        "clean_history_12m": 50,
+        "hardship_valid": 30,
+        "hardship_invalid": -100,
+        "previous_waiver_penalty": -20
+    },
+    "caps": {
+        "max_waiver_amount": 50.00,
+        "max_waivers_per_year": 2
+    },
+    "valid_reasons": [
+        "employment_loss",
+        "medical_emergency",
+        "bank_error",
+        "natural_disaster"
+    ],
+    "invalid_reasons": [
+        "forgot",
+        "vacation",
+        "didnt_see_bill"
+    ]
+}
