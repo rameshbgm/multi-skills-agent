@@ -4,9 +4,45 @@ A CLI-based AI agent demonstrating the "Build Skills, Not Agents" architecture u
 
 This agent handles three distinct domain skills using a single ReAct loop:
 
-1. **Roaming Activation**: International travel plans and rates.
-2. **Broadband Installation**: Availability checks and scheduling.
-3. **Fee Waivers**: Policy-based decision making for late fees.
+## Agent Skills
+
+### 1. Roaming Activation Specialist
+
+**Role**: International travel connectivity expert.
+
+- **Capabilities**:
+  - Verifies account eligibility and credit status.
+  - Checks specific country rates and restrictions (e.g., restricted service in North Korea, Iran).
+  - Recommends packages based on trip duration:
+    - *1-2 days*: Daily Pass
+    - *3-9 days*: Weekly Pass
+    - *10+ days*: Monthly Plan
+  - Activates services and issues reference numbers.
+
+### 2. Broadband Installation Expert
+
+**Role**: Home internet scheduling and provisioning.
+
+- **Capabilities**:
+  - Validates service availability by Zip Code.
+  - Offers technology-specific plans (Fiber vs Cable vs DSL).
+  - Manages appointments (Booking, Rescheduling, Cancellations).
+- **Business Rules**:
+  - Operates in 4-hour windows (8-12, 12-4, 4-8).
+  - Requires 2 business days notice for new bookings.
+  - Enforces cancellation fees for changes within 24 hours.
+
+### 3. Fee Waiver Specialist
+
+**Role**: Financial empathy and policy enforcement.
+
+- **Capabilities**:
+  - Analyzes customer tenure and payment history.
+  - Evaluates waiver requests based on valid vs invalid reasons (e.g., Medical Emergency vs "I forgot").
+  - **Scoring System**:
+    - *Score 100+*: 100% Waiver (Loyal, rare mistake)
+    - *Score 60-99*: 50% Waiver (Good history, occasional issue)
+    - *Score < 60*: No Waiver (Chronic issues, invalid reasons)
 
 ## Architecture
 
@@ -77,22 +113,25 @@ The system uses in-memory mock databases located in `src/database/mock_db.py` an
 
 ## Example Scenarios to Try
 
-**1. Roaming**
+### 1. Roaming
+>
 > "Hi, I am CUST001. I am going to Japan for 2 weeks."
 (Agent should suggest a Monthly plan or 2 Weekly passes, check rates, and ask to confirm.)
 
-**2. Broadband**
+### 2. Broadband
+>
 > "Is internet available at 123 Main St, zip 10001?"
 (Agent should find Fiber availability.)
 > "Book an appointment for CUST002 next Tuesday morning."
 
-**3. Fee Waiver**
+### 3. Fee Waiver
+>
 > "I missed my payment because the bank app was down. Customer CUST001."
 (Agent should check history, see high score, and approve waiver.)
 
 ## Project Structure
 
-```
+```text
 telecom-skills-agent/
 ├── main.py            # CLI Entrypoint
 ├── src/
