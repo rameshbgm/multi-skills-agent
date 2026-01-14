@@ -83,19 +83,45 @@ multi-skills-agent/
 │   ├── agent.py               # MultiSkillsAgent Class
 │   └── skills/                # Skill Definitions
 │       ├── financial_analyst/
-│       │   └── SKILL.md
+│       │   ├── SKILL.md       # Core skill definition
+│       │   ├── REFERENCE.md   # Reference documentation
+│       │   ├── EXAMPLES.md    # Example interactions
+│       │   └── sample_data.json
 │       ├── maths_teacher/
-│       │   └── SKILL.md
+│       │   ├── SKILL.md
+│       │   ├── REFERENCE.md
+│       │   ├── EXAMPLES.md
+│       │   └── sample_data.json
 │       ├── comedian/
-│       │   └── SKILL.md
+│       │   ├── SKILL.md
+│       │   ├── REFERENCE.md
+│       │   ├── EXAMPLES.md
+│       │   └── sample_data.json
 │       ├── doctor/
-│       │   └── SKILL.md
+│       │   ├── SKILL.md
+│       │   ├── REFERENCE.md
+│       │   ├── EXAMPLES.md
+│       │   └── sample_data.json
 │       └── lawyer/
-│           └── SKILL.md
+│           ├── SKILL.md
+│           ├── REFERENCE.md
+│           ├── EXAMPLES.md
+│           └── sample_data.json
 ├── logs/                      # Agent Logs
 ├── requirements.txt
 └── .env                       # API Keys (not tracked)
 ```
+
+### Skill File Structure
+
+Each skill directory contains:
+
+| File | Purpose |
+|------|---------|
+| `SKILL.md` | **Required**. Core skill definition with role, competencies, guardrails |
+| `REFERENCE.md` | Reference documentation, formulas, key concepts |
+| `EXAMPLES.md` | Example interactions showing how to respond |
+| `sample_data.json` | Sample data, configurations, and structured reference |
 
 ### How It Works
 

@@ -1,0 +1,331 @@
+{
+    "skill_metadata": {
+        "name": "Maths Teacher",
+        "version": "1.0.0",
+        "category": "Education"
+    },
+    "algebra": {
+        "quadratic_formula": {
+            "formula": "x = (-b ± √(b² - 4ac)) / 2a",
+            "description": "Solves ax² + bx + c = 0",
+            "example": {
+                "equation": "2x² + 5x - 3 = 0",
+                "a": 2,
+                "b": 5,
+                "c": -3,
+                "discriminant": 49,
+                "solutions": [
+                    0.5,
+                    -3
+                ]
+            }
+        },
+        "factoring_patterns": [
+            {
+                "name": "Difference of Squares",
+                "pattern": "a² - b²",
+                "result": "(a + b)(a - b)",
+                "example": "x² - 9 = (x + 3)(x - 3)"
+            },
+            {
+                "name": "Perfect Square Trinomial",
+                "pattern": "a² + 2ab + b²",
+                "result": "(a + b)²",
+                "example": "x² + 6x + 9 = (x + 3)²"
+            },
+            {
+                "name": "Sum of Cubes",
+                "pattern": "a³ + b³",
+                "result": "(a + b)(a² - ab + b²)",
+                "example": "x³ + 8 = (x + 2)(x² - 2x + 4)"
+            }
+        ]
+    },
+    "geometry": {
+        "2d_shapes": [
+            {
+                "name": "Rectangle",
+                "perimeter": "2(l + w)",
+                "area": "l × w",
+                "example": {
+                    "length": 8,
+                    "width": 5,
+                    "perimeter_result": 26,
+                    "area_result": 40
+                }
+            },
+            {
+                "name": "Circle",
+                "circumference": "2πr",
+                "area": "πr²",
+                "example": {
+                    "radius": 7,
+                    "circumference_result": 43.98,
+                    "area_result": 153.94
+                }
+            },
+            {
+                "name": "Triangle",
+                "perimeter": "a + b + c",
+                "area": "½ × base × height",
+                "example": {
+                    "base": 10,
+                    "height": 6,
+                    "area_result": 30
+                }
+            }
+        ],
+        "3d_shapes": [
+            {
+                "name": "Cube",
+                "surface_area": "6s²",
+                "volume": "s³",
+                "example": {
+                    "side": 4,
+                    "surface_area_result": 96,
+                    "volume_result": 64
+                }
+            },
+            {
+                "name": "Sphere",
+                "surface_area": "4πr²",
+                "volume": "(4/3)πr³",
+                "example": {
+                    "radius": 3,
+                    "surface_area_result": 113.1,
+                    "volume_result": 113.1
+                }
+            },
+            {
+                "name": "Cylinder",
+                "surface_area": "2πr² + 2πrh",
+                "volume": "πr²h",
+                "example": {
+                    "radius": 5,
+                    "height": 10,
+                    "volume_result": 785.4
+                }
+            }
+        ],
+        "pythagorean_theorem": {
+            "formula": "a² + b² = c²",
+            "description": "For right triangles, sum of squares of legs equals square of hypotenuse",
+            "common_triples": [
+                [
+                    3,
+                    4,
+                    5
+                ],
+                [
+                    5,
+                    12,
+                    13
+                ],
+                [
+                    8,
+                    15,
+                    17
+                ],
+                [
+                    7,
+                    24,
+                    25
+                ]
+            ]
+        }
+    },
+    "trigonometry": {
+        "basic_ratios": {
+            "sin": "opposite / hypotenuse",
+            "cos": "adjacent / hypotenuse",
+            "tan": "opposite / adjacent",
+            "mnemonic": "SOH-CAH-TOA"
+        },
+        "unit_circle_values": [
+            {
+                "angle_degrees": 0,
+                "angle_radians": 0,
+                "sin": 0,
+                "cos": 1,
+                "tan": 0
+            },
+            {
+                "angle_degrees": 30,
+                "angle_radians": 0.524,
+                "sin": 0.5,
+                "cos": 0.866,
+                "tan": 0.577
+            },
+            {
+                "angle_degrees": 45,
+                "angle_radians": 0.785,
+                "sin": 0.707,
+                "cos": 0.707,
+                "tan": 1
+            },
+            {
+                "angle_degrees": 60,
+                "angle_radians": 1.047,
+                "sin": 0.866,
+                "cos": 0.5,
+                "tan": 1.732
+            },
+            {
+                "angle_degrees": 90,
+                "angle_radians": 1.571,
+                "sin": 1,
+                "cos": 0,
+                "tan": "undefined"
+            }
+        ]
+    },
+    "calculus": {
+        "derivative_rules": [
+            {
+                "name": "Power Rule",
+                "original": "xⁿ",
+                "derivative": "n·xⁿ⁻¹"
+            },
+            {
+                "name": "Constant",
+                "original": "c",
+                "derivative": "0"
+            },
+            {
+                "name": "Exponential",
+                "original": "eˣ",
+                "derivative": "eˣ"
+            },
+            {
+                "name": "Natural Log",
+                "original": "ln(x)",
+                "derivative": "1/x"
+            },
+            {
+                "name": "Sine",
+                "original": "sin(x)",
+                "derivative": "cos(x)"
+            },
+            {
+                "name": "Cosine",
+                "original": "cos(x)",
+                "derivative": "-sin(x)"
+            }
+        ],
+        "integral_rules": [
+            {
+                "name": "Power Rule",
+                "original": "xⁿ",
+                "integral": "xⁿ⁺¹/(n+1) + C"
+            },
+            {
+                "name": "Exponential",
+                "original": "eˣ",
+                "integral": "eˣ + C"
+            },
+            {
+                "name": "1/x",
+                "original": "1/x",
+                "integral": "ln|x| + C"
+            },
+            {
+                "name": "Sine",
+                "original": "sin(x)",
+                "integral": "-cos(x) + C"
+            },
+            {
+                "name": "Cosine",
+                "original": "cos(x)",
+                "integral": "sin(x) + C"
+            }
+        ]
+    },
+    "statistics": {
+        "measures_of_central_tendency": {
+            "mean": {
+                "formula": "sum of all values / number of values",
+                "example": {
+                    "data": [
+                        4,
+                        8,
+                        6,
+                        5,
+                        3,
+                        2,
+                        8,
+                        9,
+                        2,
+                        5
+                    ],
+                    "result": 5.2
+                }
+            },
+            "median": {
+                "description": "Middle value when data is ordered",
+                "example": {
+                    "data": [
+                        2,
+                        2,
+                        3,
+                        4,
+                        5,
+                        5,
+                        6,
+                        8,
+                        8,
+                        9
+                    ],
+                    "result": 5
+                }
+            },
+            "mode": {
+                "description": "Most frequent value",
+                "example": {
+                    "data": [
+                        2,
+                        2,
+                        3,
+                        4,
+                        5,
+                        5,
+                        6,
+                        8,
+                        8,
+                        9
+                    ],
+                    "result": [
+                        2,
+                        5,
+                        8
+                    ]
+                }
+            }
+        }
+    },
+    "practice_problems": [
+        {
+            "topic": "Algebra",
+            "level": "Easy",
+            "problem": "Solve: 3x + 7 = 22",
+            "answer": "x = 5"
+        },
+        {
+            "topic": "Algebra",
+            "level": "Medium",
+            "problem": "Solve: x² - 7x + 12 = 0",
+            "answer": "x = 3 or x = 4"
+        },
+        {
+            "topic": "Geometry",
+            "level": "Easy",
+            "problem": "Find the area of a rectangle with length 12 and width 5",
+            "answer": "60 square units"
+        },
+        {
+            "topic": "Trigonometry",
+            "level": "Medium",
+            "problem": "In a right triangle, if the opposite side is 3 and hypotenuse is 5, find sin(θ)",
+            "answer": "sin(θ) = 3/5 = 0.6"
+        }
+    ]
+}

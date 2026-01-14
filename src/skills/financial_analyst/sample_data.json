@@ -1,0 +1,162 @@
+{
+  "skill_metadata": {
+    "name": "Financial Analyst",
+    "version": "1.0.0",
+    "category": "Finance"
+  },
+  "common_metrics": {
+    "valuation": {
+      "pe_ratio": {
+        "name": "Price-to-Earnings Ratio",
+        "formula": "Market Price / Earnings Per Share",
+        "interpretation": {
+          "low": "< 15 - potentially undervalued",
+          "average": "15-25 - fairly valued",
+          "high": "> 25 - potentially overvalued or high growth"
+        }
+      },
+      "pb_ratio": {
+        "name": "Price-to-Book Ratio",
+        "formula": "Market Price / Book Value Per Share",
+        "interpretation": {
+          "low": "< 1 - trading below asset value",
+          "average": "1-3 - fairly valued",
+          "high": "> 3 - premium valuation"
+        }
+      },
+      "peg_ratio": {
+        "name": "PEG Ratio",
+        "formula": "P/E Ratio / Earnings Growth Rate",
+        "interpretation": {
+          "undervalued": "< 1",
+          "fair": "1",
+          "overvalued": "> 1"
+        }
+      }
+    },
+    "profitability": {
+      "roe": {
+        "name": "Return on Equity",
+        "formula": "Net Income / Shareholders Equity",
+        "good_range": "15-20%+"
+      },
+      "roa": {
+        "name": "Return on Assets",
+        "formula": "Net Income / Total Assets",
+        "good_range": "5%+"
+      },
+      "gross_margin": {
+        "name": "Gross Margin",
+        "formula": "(Revenue - COGS) / Revenue",
+        "note": "Industry dependent"
+      },
+      "net_margin": {
+        "name": "Net Profit Margin",
+        "formula": "Net Income / Revenue",
+        "good_range": "10%+"
+      }
+    },
+    "liquidity": {
+      "current_ratio": {
+        "name": "Current Ratio",
+        "formula": "Current Assets / Current Liabilities",
+        "healthy_range": "1.5 - 3.0"
+      },
+      "quick_ratio": {
+        "name": "Quick Ratio",
+        "formula": "(Current Assets - Inventory) / Current Liabilities",
+        "healthy_range": "> 1.0"
+      }
+    },
+    "risk": {
+      "beta": {
+        "name": "Beta",
+        "description": "Volatility relative to market",
+        "interpretation": {
+          "low": "< 1 - less volatile than market",
+          "market": "1 - moves with market",
+          "high": "> 1 - more volatile than market"
+        }
+      },
+      "sharpe_ratio": {
+        "name": "Sharpe Ratio",
+        "formula": "(Return - Risk-Free Rate) / Standard Deviation",
+        "interpretation": {
+          "poor": "< 1",
+          "good": "1-2",
+          "excellent": "> 2"
+        }
+      }
+    }
+  },
+  "retirement_accounts": {
+    "401k": {
+      "name": "401(k)",
+      "tax_treatment": "Pre-tax contributions, taxed on withdrawal",
+      "contribution_limit_2024": 23000,
+      "catch_up_contribution_50plus": 7500,
+      "employer_match": "Common benefit, free money"
+    },
+    "roth_ira": {
+      "name": "Roth IRA",
+      "tax_treatment": "After-tax contributions, tax-free growth and withdrawal",
+      "contribution_limit_2024": 7000,
+      "catch_up_contribution_50plus": 1000,
+      "income_limits": "Phase out at higher incomes"
+    },
+    "traditional_ira": {
+      "name": "Traditional IRA",
+      "tax_treatment": "Pre-tax contributions (if eligible), taxed on withdrawal",
+      "contribution_limit_2024": 7000,
+      "catch_up_contribution_50plus": 1000
+    }
+  },
+  "asset_allocation_by_age": {
+    "aggressive_20s": {
+      "stocks": 90,
+      "bonds": 10,
+      "risk_level": "High"
+    },
+    "moderate_40s": {
+      "stocks": 70,
+      "bonds": 30,
+      "risk_level": "Moderate"
+    },
+    "conservative_60s": {
+      "stocks": 50,
+      "bonds": 50,
+      "risk_level": "Low-Moderate"
+    },
+    "retirement": {
+      "stocks": 30,
+      "bonds": 60,
+      "cash": 10,
+      "risk_level": "Conservative"
+    }
+  },
+  "economic_indicators": [
+    {
+      "name": "GDP Growth",
+      "description": "Measures economic output",
+      "healthy_range": "2-3% annual growth",
+      "impact": "Overall economy health"
+    },
+    {
+      "name": "Inflation (CPI)",
+      "description": "Consumer price changes",
+      "target": "2% (Fed target)",
+      "impact": "Purchasing power, interest rates"
+    },
+    {
+      "name": "Unemployment Rate",
+      "description": "Percentage of workforce unemployed",
+      "healthy_range": "3-5%",
+      "impact": "Consumer spending, wages"
+    },
+    {
+      "name": "Federal Funds Rate",
+      "description": "Central bank interest rate",
+      "impact": "Borrowing costs, bond yields"
+    }
+  ]
+}
