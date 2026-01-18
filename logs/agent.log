@@ -1,28 +1,40 @@
-2026-01-15 01:13:34,757 - src.agent - INFO - TelecomSkillsAgent initialized successfully.
-2026-01-15 01:13:46,723 - src.agent - INFO - Processing request for thread 2cfbbc1d-6fa1-4a5f-9228-57e7329c9a09: I'm CUST001. I missed my last payment because I was in the hospital for emergency surgery. Can you waive the late fee?
-2026-01-15 01:13:48,170 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-01-15 01:13:49,423 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-01-15 01:13:50,860 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-01-15 01:13:52,292 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-01-15 01:13:53,854 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-01-15 01:13:57,002 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-01-15 01:18:14,785 - src.agent - INFO - TelecomSkillsAgent initialized successfully.
-2026-01-15 01:18:48,760 - src.agent - INFO - Processing request for thread 008849bc-476c-4241-98c2-b2dd24c19d30: Hi, I am customer CUST001. I am traveling to France for 7 days. Can you check the rates and activate a package for me?
-2026-01-15 01:18:50,482 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-01-15 01:18:52,121 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-01-15 01:18:54,207 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-01-15 01:18:58,162 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-01-15 01:20:33,780 - src.agent - INFO - Processing request for thread 7d1f8467-fcfc-4eed-ae01-7d5d73f4b96a: Is fiber internet available at 123 Main St, zip code 10001?
-2026-01-15 01:20:35,241 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-01-15 01:20:36,877 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-01-15 02:10:46,090 - src.agent - INFO - Loaded skill: Financial Analyst
-2026-01-15 02:10:46,090 - src.agent - INFO - Loaded skill: Doctor
-2026-01-15 02:10:46,090 - src.agent - INFO - Loaded skill: Maths Teacher
-2026-01-15 02:10:46,090 - src.agent - INFO - Loaded skill: Lawyer
-2026-01-15 02:10:46,091 - src.agent - INFO - Loaded skill: Comedian
-2026-01-15 02:10:46,092 - src.agent - INFO - MultiSkillsAgent initialized with 5 skills.
-2026-01-15 02:11:02,140 - src.agent - INFO - Processing request for thread 76fda193-f430-4194-91a6-7a3a9d0f26ea: cleaar...
-2026-01-15 02:11:04,425 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2026-01-15 02:11:08,063 - src.agent - INFO - Resetting conversation for thread: 76fda193-f430-4194-91a6-7a3a9d0f26ea
-2026-01-15 02:11:27,249 - src.agent - INFO - Processing request for thread 3afac3b5-998c-4edf-bf5f-d0092c1cc38f: What's a good strategy for retirement savings at age 30?...
-2026-01-15 02:11:35,954 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-01-18 21:06:11,754 - src.agent - INFO - Loaded skill: Stock Analyst
+2026-01-18 21:06:11,754 - src.agent - INFO - Loaded skill: Weather Forecaster
+2026-01-18 21:06:11,754 - src.agent - INFO - Loaded skill: News Reporter
+2026-01-18 21:06:11,760 - src.agent - INFO - MultiSkillsAgent initialized with 3 skills and 9 MCP tools.
+2026-01-18 21:07:35,273 - src.agent - INFO - Processing request for thread f3695210-5a60-4ca3-bfe9-54c11797c12b: what is the weather in singapore and total market of of nvidia and wh about google latest news...
+2026-01-18 21:07:37,382 - httpx - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-01-18 21:07:38,213 - httpx - INFO - HTTP Request: GET https://geocoding-api.open-meteo.com/v1/search?name=Singapore&count=1&language=en&format=json "HTTP/1.1 200 OK"
+2026-01-18 21:07:39,041 - httpx - INFO - HTTP Request: GET https://api.open-meteo.com/v1/forecast?latitude=1.28967&longitude=103.85007&current=temperature_2m%2Crelative_humidity_2m%2Capparent_temperature%2Cweather_code%2Cwind_speed_10m%2Csurface_pressure&timezone=auto "HTTP/1.1 200 OK"
+2026-01-18 21:07:40,867 - httpx - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-01-18 21:07:41,047 - httpx - INFO - HTTP Request: GET https://query1.finance.yahoo.com/v8/finance/chart/NVDA "HTTP/1.1 200 OK"
+2026-01-18 21:07:42,820 - httpx - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-01-18 21:07:42,983 - httpx - INFO - HTTP Request: GET https://news.google.com/rss/search?q=Google&hl=en&gl=US&ceid=US%3Aen "HTTP/1.1 302 Found"
+2026-01-18 21:07:43,727 - httpx - INFO - HTTP Request: GET https://news.google.com/rss/search?q=Google&hl=en-US&gl=US&ceid=US:en "HTTP/1.1 200 OK"
+2026-01-18 21:07:45,379 - httpx - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-01-18 21:08:18,896 - src.agent - INFO - Processing request for thread f3695210-5a60-4ca3-bfe9-54c11797c12b: weather in singapore...
+2026-01-18 21:08:22,032 - httpx - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-01-18 21:08:22,882 - httpx - INFO - HTTP Request: GET https://geocoding-api.open-meteo.com/v1/search?name=Singapore&count=1&language=en&format=json "HTTP/1.1 200 OK"
+2026-01-18 21:08:23,682 - httpx - INFO - HTTP Request: GET https://api.open-meteo.com/v1/forecast?latitude=1.28967&longitude=103.85007&current=temperature_2m%2Crelative_humidity_2m%2Capparent_temperature%2Cweather_code%2Cwind_speed_10m%2Csurface_pressure&timezone=auto "HTTP/1.1 200 OK"
+2026-01-18 21:08:26,223 - httpx - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-01-18 21:11:12,088 - src.agent - INFO - Processing request for thread f3695210-5a60-4ca3-bfe9-54c11797c12b: help with nvidia total market cap, weather in new york and news about us and europe...
+2026-01-18 21:11:13,966 - httpx - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-01-18 21:11:14,131 - httpx - INFO - HTTP Request: GET https://query1.finance.yahoo.com/v10/finance/quoteSummary/NVDA?modules=summaryProfile%2CfinancialData%2CdefaultKeyStatistics%2Cprice "HTTP/1.1 401 Unauthorized"
+2026-01-18 21:11:16,115 - httpx - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-01-18 21:11:16,251 - httpx - INFO - HTTP Request: GET https://query1.finance.yahoo.com/v8/finance/chart/NVDA "HTTP/1.1 200 OK"
+2026-01-18 21:11:18,367 - httpx - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-01-18 21:11:19,144 - httpx - INFO - HTTP Request: GET https://geocoding-api.open-meteo.com/v1/search?name=New+York&count=1&language=en&format=json "HTTP/1.1 200 OK"
+2026-01-18 21:11:20,210 - httpx - INFO - HTTP Request: GET https://api.open-meteo.com/v1/forecast?latitude=40.71427&longitude=-74.00597&current=temperature_2m%2Crelative_humidity_2m%2Capparent_temperature%2Cweather_code%2Cwind_speed_10m%2Csurface_pressure&timezone=auto "HTTP/1.1 200 OK"
+2026-01-18 21:11:22,332 - httpx - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-01-18 21:11:22,660 - httpx - INFO - HTTP Request: GET https://news.google.com/rss?hl=en&gl=US%2CGB&ceid=US%2CGB%3Aen "HTTP/1.1 302 Found"
+2026-01-18 21:11:22,699 - httpx - INFO - HTTP Request: GET https://news.google.com/rss?hl=en-US&gl=US&ceid=US:en "HTTP/1.1 200 OK"
+2026-01-18 21:11:25,027 - httpx - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-01-18 21:26:46,617 - INFO - Agent initialized: 4 skills, 13 tools
+2026-01-18 21:28:28,892 - INFO - Agent initialized: 4 skills, 13 tools
+2026-01-18 21:29:34,139 - INFO - Agent initialized: 4 skills, 13 tools
+2026-01-18 21:30:25,503 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-01-18 21:30:25,515 - INFO - Employee database initialized with 15 records
+2026-01-18 21:30:27,514 - INFO - Agent initialized: 4 skills, 13 tools
+2026-01-18 21:30:36,536 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2026-01-18 21:30:36,548 - INFO - Employee database initialized with 15 records
+2026-01-18 21:30:37,986 - INFO - Agent initialized: 4 skills, 13 tools

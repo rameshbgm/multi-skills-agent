@@ -1,437 +1,121 @@
 # Multi-Skills Agent
 
-A CLI-based AI agent demonstrating the **"Build Skills, Not Agents"** architecture using LangChain, LangGraph, and OpenAI.
+Cost-effective AI agent using **Claude 3 Haiku** with **FREE MCP tools**.
 
-This agent uses a single generalist core with dynamically loaded domain skills. No custom tools or databases required—pure knowledge injection through skill definitions.
+## Features
 
-## 🎯 Core Concept
+- 💰 **Cheapest Model**: claude-3-haiku ($0.25/1M input, $1.25/1M output)
+- ✅ **Free Data APIs**: All MCP tools use free public APIs
+- 🔧 **13 MCP Tools**: Weather, Stocks, News, Database
+- 📦 **4 Skills**: Weather, Stock, News, Database Admin
 
-Instead of building specialized agents for each domain, we build **one versatile agent** and equip it with **multiple skills**. Each skill is a markdown file that defines:
-
-- **Role**: What the agent becomes when using this skill
-- **Competencies**: What the agent knows
-- **Communication Style**: How the agent should respond
-- **Guardrails**: What the agent should NOT do
-- **Examples**: Reference interactions
-
-## 🧠 Available Skills
-
-### 1. Financial Analyst
-
-**Role**: Investment analysis and financial planning expert.
-
-- **Competencies**:
-  - Stock, bond, and fund analysis
-  - Retirement and tax planning
-  - Economic indicators and market trends
-  - Financial metrics (P/E, ROE, Sharpe ratio)
-- **Guardrails**: No specific stock recommendations; always mention investment risks
-
-### 2. Maths Teacher
-
-**Role**: Patient mathematics educator for all levels.
-
-- **Competencies**:
-  - Arithmetic, fractions, percentages
-  - Algebra and equation solving
-  - Geometry and trigonometry
-  - Calculus (derivatives, integrals)
-  - Statistics and probability
-- **Guardrails**: Show work step-by-step; teach, don't just provide answers
-
-### 3. Comedian
-
-**Role**: Professional comedian bringing joy and laughter.
-
-- **Competencies**:
-  - Observational comedy and puns
-  - Setup-punchline and misdirection
-  - Situational humor
-  - Dad jokes and wordplay
-- **Guardrails**: No harmful or offensive humor; respect boundaries
-
-### 4. Doctor (Medical Advisor)
-
-**Role**: Health education and wellness guidance.
-
-- **Competencies**:
-  - Common conditions and symptoms
-  - Preventive health and wellness
-  - Nutrition and lifestyle medicine
-  - Medical terminology
-- **Guardrails**: No diagnosis or prescriptions; always recommend professional consultation
-
-### 5. Lawyer (Legal Advisor)
-
-**Role**: Legal education and procedural guidance.
-
-- **Competencies**:
-  - Contract and business law
-  - Civil and criminal law basics
-  - Rights education
-  - Legal procedures
-- **Guardrails**: No legal advice; note jurisdictional variations; recommend attorneys
-
----
-
-## 🏗️ Architecture
-
-```text
-multi-skills-agent/
-├── main.py                    # CLI Entry Point
-├── src/
-│   ├── agent.py               # MultiSkillsAgent Class
-│   └── skills/                # Skill Definitions
-│       ├── financial_analyst/
-│       │   ├── SKILL.md       # Core skill definition
-│       │   ├── REFERENCE.md   # Reference documentation
-│       │   ├── EXAMPLES.md    # Example interactions
-│       │   └── sample_data.json
-│       ├── maths_teacher/
-│       │   ├── SKILL.md
-│       │   ├── REFERENCE.md
-│       │   ├── EXAMPLES.md
-│       │   └── sample_data.json
-│       ├── comedian/
-│       │   ├── SKILL.md
-│       │   ├── REFERENCE.md
-│       │   ├── EXAMPLES.md
-│       │   └── sample_data.json
-│       ├── doctor/
-│       │   ├── SKILL.md
-│       │   ├── REFERENCE.md
-│       │   ├── EXAMPLES.md
-│       │   └── sample_data.json
-│       └── lawyer/
-│           ├── SKILL.md
-│           ├── REFERENCE.md
-│           ├── EXAMPLES.md
-│           └── sample_data.json
-├── logs/                      # Agent Logs
-├── requirements.txt
-└── .env                       # API Keys (not tracked)
-```
-
-### Skill File Structure
-
-Each skill directory contains:
-
-| File | Purpose |
-|------|---------|
-| `SKILL.md` | **Required**. Core skill definition with role, competencies, guardrails |
-| `REFERENCE.md` | Reference documentation, formulas, key concepts |
-| `EXAMPLES.md` | Example interactions showing how to respond |
-| `sample_data.json` | Sample data, configurations, and structured reference |
-
-### How It Works
-
-1. **Skill Discovery**: On startup, the agent scans `src/skills/` for subdirectories containing `SKILL.md` files
-2. **Prompt Assembly**: All skill contents are combined into a comprehensive system prompt
-3. **Intent Recognition**: When a user asks a question, the LLM identifies the relevant skill
-4. **Skill Application**: The agent applies that skill's guidelines, style, and guardrails
-5. **Response Generation**: The LLM generates a response following the skill's instructions
-
----
-
-## 🚀 Getting Started
-
-### Option 1: GitHub Codespaces (Recommended - No Local Setup!)
-
-The easiest way to run this project is using GitHub Codespaces. Everything is pre-configured!
-
-#### Step 1: Open in Codespaces
-
-1. Go to the repository: **<https://github.com/rameshbgm/multi-skills-agent>**
-2. Click the green **`<> Code`** button
-3. Select the **`Codespaces`** tab
-4. Click **`Create codespace on main`**
-
-> ⏳ Wait 1-2 minutes for the environment to build. The setup script will automatically:
->
-> - Create a Python virtual environment
-> - Install all dependencies
-> - Rename `.env.example` to `.env`
-
-#### Step 2: Add Your OpenAI API Key
-
-The setup automatically creates a `.env` file. You just need to add your API key:
-
-1. Open the `.env` file in the editor (click on it in the file explorer)
-2. Replace `sk-your-api-key-here` with your actual OpenAI API key
-3. Save the file (Ctrl+S / Cmd+S)
+## Quick Start
 
 ```bash
-# The .env file should look like this:
-OPENAI_API_KEY=sk-proj-abc123your-actual-key-here
-```
-
-> 🔑 **Get an API Key**: Visit [platform.openai.com/api-keys](https://platform.openai.com/api-keys) to create one.
-
-#### Step 3: Run the Agent
-
-```bash
+pip install -r requirements.txt
+echo "ANTHROPIC_API_KEY=your-key" > .env
 python main.py
 ```
 
-You should see:
+## MCP Tools (All FREE)
 
-```text
-╔═══════════════════════════════════════════════════════════════════╗
-║                   MULTI-SKILLS AGENT v2.0                         ║
-║           "Build Skills, Not Agents" Architecture                 ║
-╠═══════════════════════════════════════════════════════════════════╣
-...
-```
+| MCP | API | Tools |
+| --- | --- | ----- |
+| Weather | Open-Meteo | get_current_weather, get_weather_forecast, get_air_quality |
+| Stocks | Yahoo Finance | get_stock_quote, get_stock_history, get_company_info |
+| News | Google News RSS | get_top_headlines, search_news, get_news_sources |
+| Database | SQLite (local) | get_all_employees, get_employee_by_id, search_employees, get_department_stats |
 
-Type your questions and interact with the agent!
+## Skills
 
----
+| Skill | Description |
+| ----- | ----------- |
+| Weather Forecaster | Current conditions, forecasts, air quality |
+| Stock Analyst | Quotes, history, company info by ticker |
+| News Reporter | Headlines, search, sources |
+| Database Admin | Employee queries (15 records) |
 
-### Option 2: Local Installation
-
-#### Prerequisites
-
-- Python 3.11+
-- OpenAI API Key (GPT-4o-mini recommended)
-
-#### Installation Steps
-
-1. **Clone the repository**:
-
-    ```bash
-    git clone https://github.com/rameshbgm/multi-skills-agent.git
-    cd multi-skills-agent
-    ```
-
-2. **Create a virtual environment**:
-
-    ```bash
-    python3 -m venv venv
-    source venv/bin/activate  # Mac/Linux
-    # or: .\venv\Scripts\activate  # Windows
-    ```
-
-3. **Install dependencies**:
-
-    ```bash
-    pip install -r requirements.txt
-    ```
-
-4. **Configure API key**:
-
-    ```bash
-    cp .env.example .env
-    ```
-
-    Then edit `.env` and add your key:
-
-    ```
-    OPENAI_API_KEY=sk-your-api-key-here
-    ```
-
-5. **Run the agent**:
-
-    ```bash
-    python main.py
-    ```
-
----
-
-### Usage
-
-**CLI Commands**:
-
-| Command | Description |
-|---------|-------------|
-| `skills` | List all available skills |
-| `examples` | Show example interactions |
-| `clear` | Start a new conversation |
-| `quit` | Exit the application |
-
----
-
-## 📝 Creating New Skills
-
-Adding a new skill is simple. Follow these steps:
-
-### Step 1: Create the Skill Directory
-
-```bash
-mkdir -p src/skills/your_skill_name
-```
-
-### Step 2: Create SKILL.md
-
-Create a file `src/skills/your_skill_name/SKILL.md` with the following structure:
-
-```markdown
----
-name: Your Skill Name
-description: Brief description of what this skill does.
-version: 1.0.0
-author: Your Name
----
-
-# Your Skill Name
-
-## Role
-
-Describe who the agent becomes when using this skill.
-Example: "You are an experienced [profession] who helps users with [domain]."
-
-## Core Competencies
-
-### 1. First Area of Expertise
-- Bullet points of specific knowledge
-- More specific capabilities
-- Related sub-topics
-
-### 2. Second Area of Expertise
-- Knowledge areas
-- Capabilities
-- Related topics
-
-## Communication Style
-
-- **Trait 1**: Description of how to communicate
-- **Trait 2**: Another communication guideline
-- **Trait 3**: Etc.
-
-## Guardrails
-
-1. **Safety Rule 1**: What NOT to do
-2. **Safety Rule 2**: Another limitation
-3. **Safety Rule 3**: Important boundary
-
-## Example Interactions
-
-### Scenario A: Common Use Case
-**User**: "Example user question"
-**Approach**: How the agent should handle this
-
-### Scenario B: Edge Case
-**User**: "Another example"
-**Approach**: How to handle this scenario
-
-## Response Format
-
-When responding:
-1. First step in the response process
-2. Second step
-3. Third step
-```
-
-### Step 3: Restart the Agent
-
-The agent automatically discovers new skills on startup. Just restart:
-
-```bash
-python3 main.py
-```
-
-### Best Practices for Skills
-
-1. **Be Specific**: The more detailed your skill definition, the better the agent performs
-2. **Include Guardrails**: Always define what the agent should NOT do
-3. **Add Examples**: Concrete examples help the LLM understand expected behavior
-4. **Define Tone**: Specify the communication style for consistent personality
-5. **Test Thoroughly**: Try edge cases to refine your skill definition
-
----
-
-## 🎓 Example Interactions
-
-### Financial Analyst
+## Project Structure
 
 ```
-You >> Should I invest in index funds?
-
-🤖 Agent:
-Index funds are an excellent option for many investors! Let me explain why...
-[Discusses diversification, low fees, historical performance, and notes that
-individual circumstances vary—recommends consulting a financial advisor]
+multi-skills-agent/
+├── main.py                  # CLI
+├── src/
+│   ├── agent.py             # Agent (claude-3-haiku)
+│   ├── mcp/                 # MCP tools
+│   │   ├── weather_mcp.py   # Open-Meteo
+│   │   ├── stock_mcp.py     # Yahoo Finance
+│   │   ├── news_mcp.py      # Google News
+│   │   └── database_mcp.py  # SQLite
+│   └── skills/              # Skill definitions
+│       ├── weather_forecaster/
+│       ├── stock_analyst/
+│       ├── news_reporter/
+│       └── database_admin/
+├── .env                     # ANTHROPIC_API_KEY
+├── requirements.txt
+├── README.md
+└── RELEASE_NOTES.md
 ```
 
-### Maths Teacher
+## Configuration
+
+| Setting | Value |
+| ------- | ----- |
+| Model | claude-3-haiku-20240307 |
+| Temperature | 0.5 |
+| Max Tokens | 250 |
+
+## Examples
 
 ```
-You >> Solve x² - 5x + 6 = 0
+# Weather
+"What's the weather in Tokyo?"
+"5-day forecast for London"
 
-🤖 Agent:
-Let's solve this step by step!
+# Stocks
+"Price of AAPL"
+"Tell me about MSFT"
 
-**Step 1**: Factor the quadratic
-x² - 5x + 6 = (x - 2)(x - 3) = 0
+# News
+"Top tech news"
+"News about Tesla"
 
-**Step 2**: Apply the zero product property
-x - 2 = 0  →  x = 2
-x - 3 = 0  →  x = 3
-
-**Answer**: x = 2 or x = 3
-
-**Verify**: Plug back in: (2)² - 5(2) + 6 = 4 - 10 + 6 = 0 ✓
+# Database
+"Show all employees"
+"Find engineers"
+"Department statistics"
 ```
 
-### Comedian
+## CLI Commands
+
+| Command | Action |
+| ------- | ------ |
+| skills | List skills |
+| examples | Show examples |
+| clear | Reset conversation |
+| quit | Exit |
+
+## API Keys
+
+| Service | Required | Cost |
+| ------- | -------- | ---- |
+| Anthropic | Yes | $0.25-1.25/1M |
+| Open-Meteo | No | Free |
+| Yahoo Finance | No | Free |
+| Google News | No | Free |
+| SQLite | No | Local |
+
+## Dependencies
 
 ```
-You >> Tell me a joke
-
-🤖 Agent:
-Why do programmers prefer dark mode?
-
-Because light attracts bugs! 🐛
-
-...I'll be here all week. Try the veal. 🎤
+langchain>=0.1.0
+langchain-anthropic>=0.1.0
+langgraph>=0.0.10
+python-dotenv>=1.0.0
+httpx>=0.25.0
 ```
 
----
+## License
 
-## 🔧 Configuration
-
-### Environment Variables
-
-| Variable | Description | Required |
-|----------|-------------|----------|
-| `OPENAI_API_KEY` | Your OpenAI API key | Yes |
-
-### Model Configuration
-
-Edit `src/agent.py` to change model settings:
-
-```python
-self.llm = ChatOpenAI(
-    model="gpt-4o-mini",  # or "gpt-4", "gpt-3.5-turbo"
-    temperature=0.7,       # Creativity level (0-1)
-    api_key=self.api_key
-)
-```
-
----
-
-## 📚 Dependencies
-
-- `langchain-openai`: OpenAI integration for LangChain
-- `langgraph`: Agent orchestration and memory
-- `python-dotenv`: Environment variable management
-
----
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a new skill in `src/skills/`
-3. Test thoroughly
-4. Submit a Pull Request
-
----
-
-## 📄 License
-
-MIT License - feel free to use, modify, and distribute.
-
----
-
-## 🙏 Acknowledgments
-
-Built with the "Build Skills, Not Agents" philosophy—demonstrating that one well-designed agent with rich skill definitions can replace multiple specialized agents.
+MIT License
